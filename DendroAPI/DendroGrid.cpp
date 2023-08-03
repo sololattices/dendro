@@ -76,6 +76,7 @@ bool DendroGrid::CreateFromMesh(DendroMesh vMesh, double voxelSize, double bandw
 
 	openvdb::tools::QuadAndTriangleDataAdapter<openvdb::Vec3s, openvdb::Vec4I> mesh(vertices, faces);
 	mGrid = openvdb::tools::meshToVolume<openvdb::FloatGrid>(mesh, xform, static_cast<float>(bandwidth), static_cast<float>(bandwidth), 0, NULL);
+	mGrid = openvdb::tools::levelSetRebuild(*mGrid, static_cast<float>(0), static_cast<float>(bandwidth), &xform);
 	mDisplay = vMesh;
 
 	return true;
